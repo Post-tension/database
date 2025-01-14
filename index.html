@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-
     <style>
         body {
     background-image: url('images/background.jpg');
@@ -282,8 +281,9 @@
     </style>
 </head>
 <body>
+
     <!-- Navbar Atas untuk PC -->
-    <nav class="navbar navbar-top navbar-expand-lg navbar-dark  shadow-lg d-none d-md-block">
+    <nav class="navbar navbar-top navbar-expand-lg navbar-dark shadow-lg d-none d-md-block">
         <div class="container">
             <a class="navbar-brand" href="#">SCM-APPS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -292,18 +292,15 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white fs-5 hover-underline-animation" href="#">Home</a>
+                        <a class="nav-link text-white fs-5" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white fs-5 hover-underline-animation" href="#">Database</a>
+                        <a class="nav-link text-white fs-5" href="#">Database</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
-
-    
 
     <!-- Navbar Bawah untuk Mobile -->
     <nav class="navbar navbar-bottom navbar-dark d-md-none fixed-bottom">
@@ -327,34 +324,26 @@
     <!-- Main Content -->
     <div class="container py-5 mt-5">
         <h1 class="text-center mt-5">Selamat Datang di Aplikasi Data Asset Post Tension</h1>
-        
 
         <!-- Search Box -->
-       <!-- Search Form -->
-<!-- Search Form -->
-<div class="container mt-5 pt-5">
-    <div class="d-flex justify-content-center">
-        <div class="input-group w-75">
-            <input type="text" class="form-control rounded-pill" id="searchInput" placeholder="Search for items..." aria-label="Search" aria-describedby="basic-addon1">
+        <div class="container mt-5 pt-5">
+            <div class="d-flex justify-content-center">
+                <div class="input-group w-75">
+                    <input type="text" class="form-control rounded-pill" id="searchInput" placeholder="Search for items..." aria-label="Search">
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-
-
-        <!-- Filter Row 2 -->
+        <!-- Filter Row -->
         <div class="d-flex mt-3">
             <select id="filterRow2" class="form-select">
                 <option value="">Filter Berdasarkan Kategori</option>
-                <!-- Add categories dynamically here -->
             </select>
         
             <select id="filterRow7" class="form-select">
                 <option value="">Filter Berdasarkan Lokasi</option>
-                <!-- Add locations dynamically here -->
             </select>
         </div>
-        
 
         <!-- Card Container -->
         <div id="cardContainer" class="card-container mt-4">
@@ -363,445 +352,22 @@
     </div>
 
     <!-- QR Code Modal -->
-   <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Navbar with Data Cards and Filters</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-    background-image: url('images/background.jpg');
-    background-size: cover;
-    background-attachment: fixed; /* Fix the background image */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Arial', sans-serif;
-    overflow-y: auto;
-    padding-bottom: 70px;
-    
-}
-        .navbar-top {
-            background: linear-gradient(90deg, #0065a8, #0632ac);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-bottom {
-            background: linear-gradient(90deg, #0065a8, #0632ac);
-            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-            border-top: 2px solid #ffffff50;
-        }
-
-        .nav-link {
-            color: #f1f1f1 !important;
-            font-weight: 500;
-            transition: color 0.3s ease-in-out;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: #ffd700 !important; /* Highlight warna emas */
-        }
-
-        .scan-icon {
-            background: linear-gradient(135deg, #ff9900, #ffa500);
-            color: white;
-            border-radius: 50%;
-            width: 70px;
-            height: 70px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: -40px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .scan-icon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Card Style */
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .card {
-    width: 18rem;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
-    border-radius: 15px; /* Membuat sudut melengkung */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4); /* Gradien warna default */
-    color: #000000;
-    overflow: hidden;
-    position: relative;
-}
-
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .card .icon {
-            font-size: 50px;
-            color: rgba(75, 71, 71, 0.7);
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            transform: rotate(15deg);
-            opacity: 0.6;
-        }
-
-        .card-body {
-            text-align: center;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .card-text {
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-
-        
-
-        /* Modal Body Style */
-        .modal-body {
-            font-size: 1rem;
-        }
-
-       /* Navbar Styles */
-       .navbar-top {
-    background: #003366;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 10px 0;
-    font-family: 'Roboto', sans-serif;
-}
-
-.navbar-top .navbar-brand {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar-top .navbar-brand:hover {
-    color: #ffb81c; /* Gold on hover */
-}
-
-.navbar-top .navbar-nav .nav-item .nav-link {
-    color: #ffffff !important;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 8px 15px;
-    text-transform: capitalize;
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar-top .navbar-nav .nav-item .nav-link:hover, .navbar-top .navbar-nav .nav-item .nav-link.active {
-    color: #ffb81c !important; /* Gold on hover */
-}
-
-.navbar-top .navbar-toggler {
-    border-color: #ffb81c;
-}
-
-.navbar-top .navbar-toggler-icon {
-    background-color: #ffb81c;
-}
-
-@media (max-width: 767px) {
-    .navbar-top .navbar-nav {
-        background-color: #003366;
-        position: absolute;
-        top: 60px;
-        width: 100%;
-        left: 0;
-        display: block;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .navbar-top .navbar-nav.show {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .navbar-top .navbar-nav .nav-item .nav-link {
-        font-size: 1.2rem;
-        padding: 12px;
-    }
-}
-
-
-
-@media (max-width: 767px) {
-    .navbar-top {
-        display: none; /* Hide top navbar on small screens */
-    }
-}
-
-/* Form Search Styles */
-#searchInput {
-    border-radius: 30px;
-    padding: 12px 20px;
-    font-size: 1.2rem;
-    transition: border-color 0.3s, box-shadow 0.3s ease;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan hitam */
-}
-
-#searchInput:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
-}
-
-.input-group-text {
-    border-radius: 30px;
-    background-color: #007bff;
-    border: 1px solid #007bff;
-    color: white;
-}
-.modal-body {
-    font-size: 1rem;
-}
-@media (max-width: 767px) {
-    .navbar-top {
-        display: none;
-    }
-
-    .navbar-bottom {
-        display: flex; /* Show the bottom navbar */
-    }
-}
-
-/* Ensure the top navbar appears on larger screens */
-@media (min-width: 768px) {
-    .navbar-top {
-        display: flex;
-    }
-
-    .navbar-bottom {
-        display: none;
-    }
-}
-
-/* Custom styling for the dropdown container */
-
-
-/* Styling for each select element */
-.form-select {
-    width: 45%; /* Reduces width slightly for better balance */
-    margin: 0 15px; /* Adjusts the spacing between the dropdowns */
-    border-radius: 25px; /* Rounded corners */
-    border: 1px solid #ccc; /* Light border for a subtle effect */
-    padding: 10px 20px; /* Adds some padding inside the select box */
-    font-size: 16px; /* Increases font size for better readability */
-    transition: all 0.3s ease; /* Smooth transition for focus and hover */
-}
-
-/* Hover effect for the select boxes */
-.form-select:hover {
-    border-color: #007bff; /* Blue border on hover */
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2); /* Subtle shadow on hover */
-}
-
-/* Focus effect to make the dropdown stand out */
-.form-select:focus {
-    border-color: #0056b3; /* Darker blue border on focus */
-    outline: none; /* Removes default outline */
-    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5); /* Light glow around the select box */
-}
-
-/* Option styling */
-.form-select option {
-    padding: 10px;
-}
-
-/* Optional: Styling for the container if needed */
-.mt-3 {
-    margin-top: 20px;
-}
-
-
-    </style>
-</head>
-<body>
-    <!-- Navbar Atas untuk PC -->
-    <nav class="navbar navbar-top navbar-expand-lg navbar-dark  shadow-lg d-none d-md-block">
-        <div class="container">
-            <a class="navbar-brand" href="#">SCM-APPS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white fs-5 hover-underline-animation" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white fs-5 hover-underline-animation" href="#">Database</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-    
-
-    <!-- Navbar Bawah untuk Mobile -->
-    <nav class="navbar navbar-bottom navbar-dark d-md-none fixed-bottom">
-        <div class="container-fluid d-flex justify-content-between align-items-center px-5">
-            <a href="index.html" class="nav-link text-center">
-                <i class="bi bi-house-door-fill nav-icon"></i>
-                <div>Home</div>
-            </a>
-            
-            <div class="scan-icon" data-bs-toggle="modal" data-bs-target="#qrModal">
-                <i class="bi bi-qr-code-scan"></i>
-            </div>
-           
-            <a href="#settings" class="nav-link text-center">
-                <i class="bi bi-gear-fill nav-icon"></i>
-                <div>Database</div>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container py-5 mt-5">
-        <h1 class="text-center mt-5">Selamat Datang di Aplikasi Data Asset Post Tension</h1>
-        
-
-        <!-- Search Box -->
-       <!-- Search Form -->
-<!-- Search Form -->
-<div class="container mt-5 pt-5">
-    <div class="d-flex justify-content-center">
-        <div class="input-group w-75">
-            <input type="text" class="form-control rounded-pill" id="searchInput" placeholder="Search for items..." aria-label="Search" aria-describedby="basic-addon1">
-        </div>
-    </div>
-</div>
-
-
-
-        <!-- Filter Row 2 -->
-        <div class="d-flex mt-3">
-            <select id="filterRow2" class="form-select">
-                <option value="">Filter Berdasarkan Kategori</option>
-                <!-- Add categories dynamically here -->
-            </select>
-        
-            <select id="filterRow7" class="form-select">
-                <option value="">Filter Berdasarkan Lokasi</option>
-                <!-- Add locations dynamically here -->
-            </select>
-        </div>
-        
-
-        <!-- Card Container -->
-        <div id="cardContainer" class="card-container mt-4">
-            <!-- Data Cards will appear here -->
-        </div>
-    </div>
-
-    <!-- QR Code Modal -->
-   <!-- QR Code Modal -->
-<!-- QR Code Modal -->
-<div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="qrModalLabel">Scan QR Code</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <!-- Tempat untuk video kamera -->
-                <div id="reader" style="width: 100%; height: 300px;"></div>
-                <div id="qr-result" class="mt-3 text-center">
-                    <p>Hasil Scan: <span id="resultContent">Belum ada hasil</span></p>
+    <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="qrModalLabel">Scan QR Code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="reader" style="width: 100%; height: 300px;"></div>
+                    <div id="qr-result" class="mt-3 text-center">
+                        <p>Hasil Scan: <span id="resultContent">Belum ada hasil</span></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Link ke library HTML5 QR Code -->
-<script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-
-<script>
-    let html5QrCode;
-
-    // Fungsi untuk memulai scanner QR setelah modal dibuka
-    function startQRScanner() {
-        const qrCodeReader = document.getElementById('reader');
-
-        // Memastikan QR Code Reader hanya diinisialisasi sekali
-        if (!html5QrCode) {
-            html5QrCode = new Html5Qrcode("reader");
-
-            html5QrCode.start(
-                { facingMode: "environment" }, // Kamera belakang
-                {
-                    fps: 10,    // Frames per second
-                    qrbox: 250, // Ukuran box QR di layar
-                },
-                (decodedText, decodedResult) => {
-                    // Menampilkan hasil scan QR
-                    document.getElementById('resultContent').textContent = decodedText;
-                },
-                (errorMessage) => {
-                    console.error("Error decoding QR code: ", errorMessage);
-                }
-            ).catch((err) => {
-                console.error("QR Code scanner error: ", err);
-            });
-        }
-    }
-
-    // Menghentikan QR scanner saat modal ditutup
-    function stopQRScanner() {
-        if (html5QrCode) {
-            html5QrCode.stop().then(() => {
-                console.log("QR Code scanner stopped.");
-            }).catch((err) => {
-                console.error("Failed to stop scanner:", err);
-            });
-        }
-    }
-
-    // Mulai pemindai QR saat modal terbuka
-    $('#qrModal').on('shown.bs.modal', function () {
-        startQRScanner();
-    });
-
-    // Hentikan pemindai QR saat modal ditutup
-    $('#qrModal').on('hidden.bs.modal', function () {
-        stopQRScanner();
-    });
-</script>
-
-
 
     <!-- Modal for Data Detail -->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
@@ -819,15 +385,10 @@
     </div>
 
     <!-- Bootstrap JS -->
-
-     <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Script untuk ambil data dari Google Sheets -->
     <script>
-
-
         const spreadsheetId = "1O29p24mJmX-fvEtLw3Ia1WSmh-_nVS_AdOk8Ap6hoq0"; // Ganti dengan ID spreadsheet Anda
         const apiKey = "AIzaSyAaoonqQDk_uxT9gIaH0ctGzcVvwcdtSa0"; // Ganti dengan API key Anda
     
@@ -839,376 +400,91 @@
             const response = await fetch(url);
             const data = await response.json();
             rows = data.values.slice(1); // Hapus header
-    
-            // Menampilkan data dalam bentuk cards
+
             const cardContainer = document.getElementById("cardContainer");
             const filterRow2 = document.getElementById("filterRow2");
             const filterRow7 = document.getElementById("filterRow7");
-    
-            // Filter berdasarkan kolom Row 2 dan Row 7
+
             const row2Values = [...new Set(rows.map(row => row[2]))];
             const row7Values = [...new Set(rows.map(row => row[11]))];
-    
-            // Populate filter options
+
             row2Values.forEach(value => {
                 const option = document.createElement("option");
                 option.value = value;
                 option.textContent = value;
                 filterRow2.appendChild(option);
             });
-    
+
             row7Values.forEach(value => {
                 const option = document.createElement("option");
                 option.value = value;
                 option.textContent = value;
                 filterRow7.appendChild(option);
             });
-    
+
             renderCards(rows);
         }
-    
+
         // Menampilkan cards berdasarkan data
-       // Menampilkan cards berdasarkan data
-       function getRandomGradient() {
-    const colors = [
-        "#ff9a9e", "#fad0c4", "#a18cd1", "#fbc2eb", 
-        "#f6d365", "#fda085", "#84fab0", "#8fd3f4", 
-        "#a6c0fe", "#f68084", "#fccb90", "#d57eeb"
-    ];
-
-    // Pilih dua warna acak
-    const color1 = colors[Math.floor(Math.random() * colors.length)];
-    const color2 = colors[Math.floor(Math.random() * colors.length)];
-    
-    return `linear-gradient(135deg, ${color1}, ${color2})`;
-}
-
-function renderCards(filteredRows) {
-    const cardContainer = document.getElementById("cardContainer");
-    cardContainer.innerHTML = ""; // Clear existing cards
-
-    filteredRows.forEach((row, index) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-
-        // Set gradien warna acak
-        card.style.background = getRandomGradient();
-
-        const itemId = row[7]; // Asumsi kolom ke-7 berisi ID yang unik
-
-        const link = document.createElement("a");
-        link.href = `viewdetail.html?id=${itemId}`;
-        link.setAttribute("class", "stretched-link");
-
-        const cardContent = `
-            <div class="icon">
-                <i class="bi bi-gem"></i>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">${row[1]}</h5>
-                <p class="card-text">Tipe: ${row[2]}</p>
-                <p class="card-text">Nomor Seri: ${row[7]}</p>
-                <p class="card-text">Lokasi: ${row[11]}</p>
-            </div>
-        `;
-        card.innerHTML = cardContent;
-        card.appendChild(link);
-        cardContainer.appendChild(card);
-    });
-}
-
-
-
-    
-        // Fungsi untuk filter data
-       // Fungsi untuk filter data
-function filterData() {
-    const searchValue = document.getElementById("searchInput").value.toLowerCase();
-    const selectedFilter2 = document.getElementById("filterRow2").value.toLowerCase();
-    const selectedFilter7 = document.getElementById("filterRow7").value.toLowerCase();
-
-    // Filter berdasarkan kategori dan lokasi
-    const filteredRows = rows.filter(row => {
-        const category = row[2].toLowerCase();
-        const location = row[11].toLowerCase();
-
-        // Filter berdasarkan kategori dan lokasi jika dipilih
-        const matchesCategory = !selectedFilter2 || category.includes(selectedFilter2);
-        const matchesLocation = !selectedFilter7 || location.includes(selectedFilter7);
-
-        return matchesCategory && matchesLocation;
-    });
-
-    // Jika searchInput tidak kosong, lakukan pencarian terhadap seluruh kolom dalam setiap row
-    const finalFilteredRows = filteredRows.filter(row => {
-        // Memeriksa setiap kolom di dalam row
-        return row.some(cell => cell.toLowerCase().includes(searchValue));
-    });
-
-    // Render ulang cards berdasarkan data yang sudah difilter
-    renderCards(finalFilteredRows);
-}
-
-    
-        // Event listeners untuk search dan filters
-        document.getElementById("searchInput").addEventListener("input", filterData);
-        document.getElementById("filterRow2").addEventListener("change", filterData);
-        document.getElementById("filterRow7").addEventListener("change", filterData);
-    
-        // Panggil fetchData saat halaman dimuat
-        fetchData();
-
-        function onScanSuccess(decodedText, decodedResult) {
-        // Hasil scan QR code
-        console.log(`Code scanned = ${decodedText}`, decodedResult);
-        document.getElementById('resultContent').innerText = decodedText;
-
-        // Lakukan sesuatu dengan hasil (misalnya, buka halaman detail berdasarkan hasil scan)
-        window.location.href = `viewdetail.html?id=${decodedText}`;
-    }
-
-    function onScanFailure(error) {
-        // Error jika tidak berhasil membaca QR Code
-        console.warn(`QR Code scan error: ${error}`);
-    }
-
-    // Inisialisasi html5-qrcode
-    const qrCodeReader = new Html5Qrcode("reader");
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const qrModal = document.getElementById('qrModal');
-        const qrModalInstance = new bootstrap.Modal(qrModal);
-
-        // Ketika modal ditampilkan, mulai pemindai QR Code
-        qrModal.addEventListener('shown.bs.modal', () => {
-            qrCodeReader.start(
-                { facingMode: "environment" }, // Kamera belakang
-                {
-                    fps: 10,
-                    qrbox: { width: 250, height: 250 }
-                },
-                onScanSuccess,
-                onScanFailure
-            ).catch(err => {
-                console.error(`Unable to start scanning: ${err}`);
-            });
-        });
-
-        // Ketika modal ditutup, hentikan pemindai QR Code
-        qrModal.addEventListener('hidden.bs.modal', () => {
-            qrCodeReader.stop().catch(err => {
-                console.error(`Unable to stop scanning: ${err}`);
-            });
-        });
-    });
-    </script>
-    
-    
-</body>
-</html>
-
-
-    <!-- Modal for Data Detail -->
-    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detailModalLabel">Detail Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="modalContent">
-                    <!-- Detail Data Here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS -->
-
-     <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Script untuk ambil data dari Google Sheets -->
-    <script>
-
-
-        const spreadsheetId = "1O29p24mJmX-fvEtLw3Ia1WSmh-_nVS_AdOk8Ap6hoq0"; // Ganti dengan ID spreadsheet Anda
-        const apiKey = "AIzaSyAaoonqQDk_uxT9gIaH0ctGzcVvwcdtSa0"; // Ganti dengan API key Anda
-    
-        let rows = [];
-    
-        // Ambil data dari Google Sheets
-        async function fetchData() {
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1?key=${apiKey}`;
-            const response = await fetch(url);
-            const data = await response.json();
-            rows = data.values.slice(1); // Hapus header
-    
-            // Menampilkan data dalam bentuk cards
+        function renderCards(filteredRows) {
             const cardContainer = document.getElementById("cardContainer");
-            const filterRow2 = document.getElementById("filterRow2");
-            const filterRow7 = document.getElementById("filterRow7");
-    
-            // Filter berdasarkan kolom Row 2 dan Row 7
-            const row2Values = [...new Set(rows.map(row => row[2]))];
-            const row7Values = [...new Set(rows.map(row => row[11]))];
-    
-            // Populate filter options
-            row2Values.forEach(value => {
-                const option = document.createElement("option");
-                option.value = value;
-                option.textContent = value;
-                filterRow2.appendChild(option);
+            cardContainer.innerHTML = "";
+
+            filteredRows.forEach((row) => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+
+                const itemId = row[7]; // Asumsi kolom ke-7 berisi ID yang unik
+
+                const link = document.createElement("a");
+                link.href = `viewdetail.html?id=${itemId}`;
+                link.setAttribute("class", "stretched-link");
+
+                const cardContent = `
+                    <div class="icon">
+                        <i class="bi bi-gem"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">${row[1]}</h5>
+                        <p class="card-text">Tipe: ${row[2]}</p>
+                        <p class="card-text">Nomor Seri: ${row[7]}</p>
+                        <p class="card-text">Lokasi: ${row[11]}</p>
+                    </div>
+                `;
+                card.innerHTML = cardContent;
+                card.appendChild(link);
+                cardContainer.appendChild(card);
             });
-    
-            row7Values.forEach(value => {
-                const option = document.createElement("option");
-                option.value = value;
-                option.textContent = value;
-                filterRow7.appendChild(option);
-            });
-    
-            renderCards(rows);
         }
-    
-        // Menampilkan cards berdasarkan data
-       // Menampilkan cards berdasarkan data
-       function getRandomGradient() {
-    const colors = [
-        "#ff9a9e", "#fad0c4", "#a18cd1", "#fbc2eb", 
-        "#f6d365", "#fda085", "#84fab0", "#8fd3f4", 
-        "#a6c0fe", "#f68084", "#fccb90", "#d57eeb"
-    ];
 
-    // Pilih dua warna acak
-    const color1 = colors[Math.floor(Math.random() * colors.length)];
-    const color2 = colors[Math.floor(Math.random() * colors.length)];
-    
-    return `linear-gradient(135deg, ${color1}, ${color2})`;
-}
-
-function renderCards(filteredRows) {
-    const cardContainer = document.getElementById("cardContainer");
-    cardContainer.innerHTML = ""; // Clear existing cards
-
-    filteredRows.forEach((row, index) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-
-        // Set gradien warna acak
-        card.style.background = getRandomGradient();
-
-        const itemId = row[7]; // Asumsi kolom ke-7 berisi ID yang unik
-
-        const link = document.createElement("a");
-        link.href = `viewdetail.html?id=${itemId}`;
-        link.setAttribute("class", "stretched-link");
-
-        const cardContent = `
-            <div class="icon">
-                <i class="bi bi-gem"></i>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">${row[1]}</h5>
-                <p class="card-text">Tipe: ${row[2]}</p>
-                <p class="card-text">Nomor Seri: ${row[7]}</p>
-                <p class="card-text">Lokasi: ${row[11]}</p>
-            </div>
-        `;
-        card.innerHTML = cardContent;
-        card.appendChild(link);
-        cardContainer.appendChild(card);
-    });
-}
-
-
-
-    
-        // Fungsi untuk filter data
-       // Fungsi untuk filter data
-function filterData() {
-    const searchValue = document.getElementById("searchInput").value.toLowerCase();
-    const selectedFilter2 = document.getElementById("filterRow2").value.toLowerCase();
-    const selectedFilter7 = document.getElementById("filterRow7").value.toLowerCase();
-
-    // Filter berdasarkan kategori dan lokasi
-    const filteredRows = rows.filter(row => {
-        const category = row[2].toLowerCase();
-        const location = row[11].toLowerCase();
-
-        // Filter berdasarkan kategori dan lokasi jika dipilih
-        const matchesCategory = !selectedFilter2 || category.includes(selectedFilter2);
-        const matchesLocation = !selectedFilter7 || location.includes(selectedFilter7);
-
-        return matchesCategory && matchesLocation;
-    });
-
-    // Jika searchInput tidak kosong, lakukan pencarian terhadap seluruh kolom dalam setiap row
-    const finalFilteredRows = filteredRows.filter(row => {
-        // Memeriksa setiap kolom di dalam row
-        return row.some(cell => cell.toLowerCase().includes(searchValue));
-    });
-
-    // Render ulang cards berdasarkan data yang sudah difilter
-    renderCards(finalFilteredRows);
-}
-
-    
         // Event listeners untuk search dan filters
         document.getElementById("searchInput").addEventListener("input", filterData);
         document.getElementById("filterRow2").addEventListener("change", filterData);
         document.getElementById("filterRow7").addEventListener("change", filterData);
-    
-        // Panggil fetchData saat halaman dimuat
+
+        function filterData() {
+            const searchValue = document.getElementById("searchInput").value.toLowerCase();
+            const selectedFilter2 = document.getElementById("filterRow2").value.toLowerCase();
+            const selectedFilter7 = document.getElementById("filterRow7").value.toLowerCase();
+
+            const filteredRows = rows.filter(row => {
+                const category = row[2].toLowerCase();
+                const location = row[11].toLowerCase();
+
+                return (
+                    (row[1].toLowerCase().includes(searchValue) ||
+                    row[7].toLowerCase().includes(searchValue)) &&
+                    (selectedFilter2 ? category === selectedFilter2 : true) &&
+                    (selectedFilter7 ? location === selectedFilter7 : true)
+                );
+            });
+
+            renderCards(filteredRows);
+        }
+
+        // Panggil fungsi untuk ambil data dari Google Sheets
         fetchData();
-
-        function onScanSuccess(decodedText, decodedResult) {
-        // Hasil scan QR code
-        console.log(`Code scanned = ${decodedText}`, decodedResult);
-        document.getElementById('resultContent').innerText = decodedText;
-
-        // Lakukan sesuatu dengan hasil (misalnya, buka halaman detail berdasarkan hasil scan)
-        window.location.href = `viewdetail.html?id=${decodedText}`;
-    }
-
-    function onScanFailure(error) {
-        // Error jika tidak berhasil membaca QR Code
-        console.warn(`QR Code scan error: ${error}`);
-    }
-
-    // Inisialisasi html5-qrcode
-    const qrCodeReader = new Html5Qrcode("reader");
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const qrModal = document.getElementById('qrModal');
-        const qrModalInstance = new bootstrap.Modal(qrModal);
-
-        // Ketika modal ditampilkan, mulai pemindai QR Code
-        qrModal.addEventListener('shown.bs.modal', () => {
-            qrCodeReader.start(
-                { facingMode: "environment" }, // Kamera belakang
-                {
-                    fps: 10,
-                    qrbox: { width: 250, height: 250 }
-                },
-                onScanSuccess,
-                onScanFailure
-            ).catch(err => {
-                console.error(`Unable to start scanning: ${err}`);
-            });
-        });
-
-        // Ketika modal ditutup, hentikan pemindai QR Code
-        qrModal.addEventListener('hidden.bs.modal', () => {
-            qrCodeReader.stop().catch(err => {
-                console.error(`Unable to stop scanning: ${err}`);
-            });
-        });
-    });
     </script>
-    
-    
+
 </body>
 </html>
