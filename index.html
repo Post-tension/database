@@ -360,31 +360,27 @@
         </div>
     </div>
 
-    <!-- QR Code Modal -->
-    <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="qrModalLabel">Scan QR Code</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <div id="qr-reader" style="width: 100%; height: 300px;"></div>
-                    <div id="qr-reader-results"></div>
-                        <p>Hasil Scan: <span id="resultContent">Belum ada hasil</span></p>
-                    </div>
-                </div>
+   <!-- QR Code Scan Modala -->
+<div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="qrModalLabel">Scan QR Code</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="qr-reader" style="width: 100%; height: 300px;"></div>
+                <div id="qr-reader-results"></div>
+                <p>Hasil Scan: <span id="resultContent">Belum ada hasil</span></p>
             </div>
         </div>
     </div>
-    
-    <script>
-       
+</div>
+
+<script>
     function docReady(fn) {
-        // see if DOM is already available
         if (document.readyState === "complete"
             || document.readyState === "interactive") {
-            // call on next available tick
             setTimeout(fn, 1);
         } else {
             document.addEventListener("DOMContentLoaded", fn);
@@ -394,11 +390,17 @@
     docReady(function () {
         var resultContainer = document.getElementById('qr-reader-results');
         var lastResult, countResults = 0;
+
         function onScanSuccess(decodedText, decodedResult) {
             if (decodedText !== lastResult) {
                 ++countResults;
                 lastResult = decodedText;
-                // Handle on success condition with the decoded message.
+
+                // Update the displayed result in the modal
+                document.getElementById("resultContent").textContent = decodedText;
+
+                // Redirect to the scanned URL
+                window.location.href = decodedText;
                 console.log(`Scan result ${decodedText}`, decodedResult);
             }
         }
@@ -407,7 +409,7 @@
             "qr-reader", { fps: 10, qrbox: 250 });
         html5QrcodeScanner.render(onScanSuccess);
     });
-    </script>
+</script>
 
     <!-- Modal for Data Detail -->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
