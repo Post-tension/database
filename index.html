@@ -6,7 +6,6 @@
     <title>Luxury Navbar with Data Cards and Filters</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
     <style>
         body {
     background-image: url('images/background.jpg');
@@ -281,9 +280,8 @@
     </style>
 </head>
 <body>
-
     <!-- Navbar Atas untuk PC -->
-    <nav class="navbar navbar-top navbar-expand-lg navbar-dark shadow-lg d-none d-md-block">
+    <nav class="navbar navbar-top navbar-expand-lg navbar-dark  shadow-lg d-none d-md-block">
         <div class="container">
             <a class="navbar-brand" href="#">SCM-APPS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -292,15 +290,18 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white fs-5" href="#">Home</a>
+                        <a class="nav-link text-white fs-5 hover-underline-animation" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white fs-5" href="#">Database</a>
+                        <a class="nav-link text-white fs-5 hover-underline-animation" href="#">Database</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+
+    
 
     <!-- Navbar Bawah untuk Mobile -->
     <nav class="navbar navbar-bottom navbar-dark d-md-none fixed-bottom">
@@ -324,26 +325,34 @@
     <!-- Main Content -->
     <div class="container py-5 mt-5">
         <h1 class="text-center mt-5">Selamat Datang di Aplikasi Data Asset Post Tension</h1>
+        
 
         <!-- Search Box -->
-        <div class="container mt-5 pt-5">
-            <div class="d-flex justify-content-center">
-                <div class="input-group w-75">
-                    <input type="text" class="form-control rounded-pill" id="searchInput" placeholder="Search for items..." aria-label="Search">
-                </div>
-            </div>
+       <!-- Search Form -->
+<!-- Search Form -->
+<div class="container mt-5 pt-5">
+    <div class="d-flex justify-content-center">
+        <div class="input-group w-75">
+            <input type="text" class="form-control rounded-pill" id="searchInput" placeholder="Search for items..." aria-label="Search" aria-describedby="basic-addon1">
         </div>
+    </div>
+</div>
 
-        <!-- Filter Row -->
+
+
+        <!-- Filter Row 2 -->
         <div class="d-flex mt-3">
             <select id="filterRow2" class="form-select">
                 <option value="">Filter Berdasarkan Kategori</option>
+                <!-- Add categories dynamically here -->
             </select>
         
             <select id="filterRow7" class="form-select">
                 <option value="">Filter Berdasarkan Lokasi</option>
+                <!-- Add locations dynamically here -->
             </select>
         </div>
+        
 
         <!-- Card Container -->
         <div id="cardContainer" class="card-container mt-4">
@@ -360,14 +369,45 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <div id="reader" style="width: 100%; height: 300px;"></div>
-                    <div id="qr-result" class="mt-3 text-center">
+                    <div id="qr-reader" style="width: 100%; height: 300px;"></div>
+                    <div id="qr-reader-results"></div>
                         <p>Hasil Scan: <span id="resultContent">Belum ada hasil</span></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script>
+       
+    function docReady(fn) {
+        // see if DOM is already available
+        if (document.readyState === "complete"
+            || document.readyState === "interactive") {
+            // call on next available tick
+            setTimeout(fn, 1);
+        } else {
+            document.addEventListener("DOMContentLoaded", fn);
+        }
+    }
+
+    docReady(function () {
+        var resultContainer = document.getElementById('qr-reader-results');
+        var lastResult, countResults = 0;
+        function onScanSuccess(decodedText, decodedResult) {
+            if (decodedText !== lastResult) {
+                ++countResults;
+                lastResult = decodedText;
+                // Handle on success condition with the decoded message.
+                console.log(`Scan result ${decodedText}`, decodedResult);
+            }
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess);
+    });
+    </script>
 
     <!-- Modal for Data Detail -->
     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
@@ -385,12 +425,15 @@
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="html5-qrcode.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Script untuk ambil data dari Google Sheets -->
     <script>
+
+
         const spreadsheetId = "1O29p24mJmX-fvEtLw3Ia1WSmh-_nVS_AdOk8Ap6hoq0"; // Ganti dengan ID spreadsheet Anda
         const apiKey = "AIzaSyAaoonqQDk_uxT9gIaH0ctGzcVvwcdtSa0"; // Ganti dengan API key Anda
     
@@ -402,91 +445,170 @@
             const response = await fetch(url);
             const data = await response.json();
             rows = data.values.slice(1); // Hapus header
-
+    
+            // Menampilkan data dalam bentuk cards
             const cardContainer = document.getElementById("cardContainer");
             const filterRow2 = document.getElementById("filterRow2");
             const filterRow7 = document.getElementById("filterRow7");
-
+    
+            // Filter berdasarkan kolom Row 2 dan Row 7
             const row2Values = [...new Set(rows.map(row => row[2]))];
             const row7Values = [...new Set(rows.map(row => row[11]))];
-
+    
+            // Populate filter options
             row2Values.forEach(value => {
                 const option = document.createElement("option");
                 option.value = value;
                 option.textContent = value;
                 filterRow2.appendChild(option);
             });
-
+    
             row7Values.forEach(value => {
                 const option = document.createElement("option");
                 option.value = value;
                 option.textContent = value;
                 filterRow7.appendChild(option);
             });
-
+    
             renderCards(rows);
         }
-
+    
         // Menampilkan cards berdasarkan data
-        function renderCards(filteredRows) {
-            const cardContainer = document.getElementById("cardContainer");
-            cardContainer.innerHTML = "";
+       // Menampilkan cards berdasarkan data
+       function getRandomGradient() {
+    const colors = [
+        "#ff9a9e", "#fad0c4", "#a18cd1", "#fbc2eb", 
+        "#f6d365", "#fda085", "#84fab0", "#8fd3f4", 
+        "#a6c0fe", "#f68084", "#fccb90", "#d57eeb"
+    ];
 
-            filteredRows.forEach((row) => {
-                const card = document.createElement("div");
-                card.classList.add("card");
+    // Pilih dua warna acak
+    const color1 = colors[Math.floor(Math.random() * colors.length)];
+    const color2 = colors[Math.floor(Math.random() * colors.length)];
+    
+    return `linear-gradient(135deg, ${color1}, ${color2})`;
+}
 
-                const itemId = row[7]; // Asumsi kolom ke-7 berisi ID yang unik
+function renderCards(filteredRows) {
+    const cardContainer = document.getElementById("cardContainer");
+    cardContainer.innerHTML = ""; // Clear existing cards
 
-                const link = document.createElement("a");
-                link.href = `viewdetail.html?id=${itemId}`;
-                link.setAttribute("class", "stretched-link");
+    filteredRows.forEach((row, index) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
 
-                const cardContent = `
-                    <div class="icon">
-                        <i class="bi bi-gem"></i>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">${row[1]}</h5>
-                        <p class="card-text">Tipe: ${row[2]}</p>
-                        <p class="card-text">Nomor Seri: ${row[7]}</p>
-                        <p class="card-text">Lokasi: ${row[11]}</p>
-                    </div>
-                `;
-                card.innerHTML = cardContent;
-                card.appendChild(link);
-                cardContainer.appendChild(card);
-            });
-        }
+        // Set gradien warna acak
+        card.style.background = getRandomGradient();
 
+        const itemId = row[7]; // Asumsi kolom ke-7 berisi ID yang unik
+
+        const link = document.createElement("a");
+        link.href = `viewdetail.html?id=${itemId}`;
+        link.setAttribute("class", "stretched-link");
+
+        const cardContent = `
+            <div class="icon">
+                <i class="bi bi-gem"></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">${row[1]}</h5>
+                <p class="card-text">Tipe: ${row[2]}</p>
+                <p class="card-text">Nomor Seri: ${row[7]}</p>
+                <p class="card-text">Lokasi: ${row[11]}</p>
+            </div>
+        `;
+        card.innerHTML = cardContent;
+        card.appendChild(link);
+        cardContainer.appendChild(card);
+    });
+}
+
+
+
+    
+        // Fungsi untuk filter data
+       // Fungsi untuk filter data
+function filterData() {
+    const searchValue = document.getElementById("searchInput").value.toLowerCase();
+    const selectedFilter2 = document.getElementById("filterRow2").value.toLowerCase();
+    const selectedFilter7 = document.getElementById("filterRow7").value.toLowerCase();
+
+    // Filter berdasarkan kategori dan lokasi
+    const filteredRows = rows.filter(row => {
+        const category = row[2].toLowerCase();
+        const location = row[11].toLowerCase();
+
+        // Filter berdasarkan kategori dan lokasi jika dipilih
+        const matchesCategory = !selectedFilter2 || category.includes(selectedFilter2);
+        const matchesLocation = !selectedFilter7 || location.includes(selectedFilter7);
+
+        return matchesCategory && matchesLocation;
+    });
+
+    // Jika searchInput tidak kosong, lakukan pencarian terhadap seluruh kolom dalam setiap row
+    const finalFilteredRows = filteredRows.filter(row => {
+        // Memeriksa setiap kolom di dalam row
+        return row.some(cell => cell.toLowerCase().includes(searchValue));
+    });
+
+    // Render ulang cards berdasarkan data yang sudah difilter
+    renderCards(finalFilteredRows);
+}
+
+    
         // Event listeners untuk search dan filters
         document.getElementById("searchInput").addEventListener("input", filterData);
         document.getElementById("filterRow2").addEventListener("change", filterData);
         document.getElementById("filterRow7").addEventListener("change", filterData);
-
-        function filterData() {
-            const searchValue = document.getElementById("searchInput").value.toLowerCase();
-            const selectedFilter2 = document.getElementById("filterRow2").value.toLowerCase();
-            const selectedFilter7 = document.getElementById("filterRow7").value.toLowerCase();
-
-            const filteredRows = rows.filter(row => {
-                const category = row[2].toLowerCase();
-                const location = row[11].toLowerCase();
-
-                return (
-                    (row[1].toLowerCase().includes(searchValue) ||
-                    row[7].toLowerCase().includes(searchValue)) &&
-                    (selectedFilter2 ? category === selectedFilter2 : true) &&
-                    (selectedFilter7 ? location === selectedFilter7 : true)
-                );
-            });
-
-            renderCards(filteredRows);
-        }
-
-        // Panggil fungsi untuk ambil data dari Google Sheets
+    
+        // Panggil fetchData saat halaman dimuat
         fetchData();
-    </script>
 
+        function onScanSuccess(decodedText, decodedResult) {
+        // Hasil scan QR code
+        console.log(`Code scanned = ${decodedText}`, decodedResult);
+        document.getElementById('resultContent').innerText = decodedText;
+
+        // Lakukan sesuatu dengan hasil (misalnya, buka halaman detail berdasarkan hasil scan)
+        window.location.href = `viewdetail.html?id=${decodedText}`;
+    }
+
+    function onScanFailure(error) {
+        // Error jika tidak berhasil membaca QR Code
+        console.warn(`QR Code scan error: ${error}`);
+    }
+
+    // Inisialisasi html5-qrcode
+    const qrCodeReader = new Html5Qrcode("reader");
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const qrModal = document.getElementById('qrModal');
+        const qrModalInstance = new bootstrap.Modal(qrModal);
+
+        // Ketika modal ditampilkan, mulai pemindai QR Code
+        qrModal.addEventListener('shown.bs.modal', () => {
+            qrCodeReader.start(
+                { facingMode: "environment" }, // Kamera belakang
+                {
+                    fps: 10,
+                    qrbox: { width: 250, height: 250 }
+                },
+                onScanSuccess,
+                onScanFailure
+            ).catch(err => {
+                console.error(`Unable to start scanning: ${err}`);
+            });
+        });
+
+        // Ketika modal ditutup, hentikan pemindai QR Code
+        qrModal.addEventListener('hidden.bs.modal', () => {
+            qrCodeReader.stop().catch(err => {
+                console.error(`Unable to stop scanning: ${err}`);
+            });
+        });
+    });
+    </script>
+    
+    
 </body>
 </html>
