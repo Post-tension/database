@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Data Barang</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('images/background.jpg');
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container-main {
+            max-width: 1200px;
+            width: 100%;
+            background-color: #fff;
+            color: #333;
+            border-radius: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+        .row-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card-profile {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 1 1 calc(50% - 20px); /* Default two-column for larger screens */
+            min-width: 100%; /* Single column for smaller screens */
+        }
+        .card-header {
+            background: #1450b9;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 15px 15px 0 0;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+        .card-body img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 4px solid #2575fc;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .card-text {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .btn-custom {
+            background-color: #2575fc;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-custom:hover {
+            background-color: #0039cb;
+            transform: scale(1.05);
+        }
+        .btn-back {
+            background-color: #cf4f04;
+            color: #fff;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .btn-back:hover {
+            background-color: #052baa;
+            color: #fff;
+        }
+        @media (max-width: 768px) {
+            .card-profile {
+                flex: 1 1 100%; /* Single column for tablets and smaller screens */
+            }
+            .card-body img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+    <script>
+        let rows = [];
+
+        async function fetchData() {
+            const spreadsheetId = "1O29p24mJmX-fvEtLw3Ia1WSmh-_nVS_AdOk8Ap6hoq0"; // Ganti dengan ID spreadsheet Anda
+            const apiKey = "AIzaSyAaoonqQDk_uxT9gIaH0ctGzcVvwcdtSa0"; // Ganti dengan API key Anda
+            
+            try {
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1?key=${apiKey}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                rows = data.values.slice(1); // Hapus header
+                
+                const params = new URLSearchParams(window.location.search);
+                const itemId = params.get("id");
+                
+                if (itemId !== null) {
+                    renderDetailPage(itemId);
+                } else {
+                    alert("ID tidak ditemukan.");
+                }
+            } catch (error) {
+                console.error("Error fetching data from Google Sheets: ", error);
+                alert("Terjadi kesalahan saat mengambil data.");
+            }
+        }
+        
+        function renderDetailPage(itemId) {
+            const row = rows.find(r => r[7] == itemId);
+            const container = document.getElementById("dataContainer");
+
+            if (row) {
+                const imageUrl = `images/${row[2]}.jpg`;
+
+                container.innerHTML = `
+                    <div class="row-container">
+                        <!-- Container 1 -->
+                        <div class="card card-profile">
+                            <div class="card-header">
+                                <h4>Detail Barang</h4>
+                            </div>
+                            <div class="card-body text-center">
+                                <img src="${imageUrl}" alt="Image" class="img-fluid">
+                                <h5 class="card-title">${row[1]}</h5>
+                                <p class="card-text"><strong>Kategori:</strong> ${row[2]}</p>
+                                <p class="card-text"><strong>Lokasi:</strong> ${row[7]}</p>
+                                <p class="card-text"><strong>Jumlah:</strong> ${row[6]}</p>
+                            </div>
+                        </div>
+
+                        <!-- Container 2 -->
+                        <div class="card card-profile">
+                            <div class="card-header">
+                                <h4>Informasi Tambahan</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Detail:</strong> ${row[8]}</p>
+                                <p class="card-text"><strong>Row Tambahan 1:</strong> ${row[9] || '-'}</p>
+                                <p class="card-text"><strong>Row Tambahan 2:</strong> ${row[10] || '-'}</p>
+                                <p class="card-text"><strong>Row Tambahan 3:</strong> ${row[11] || '-'}</p>
+                                <a href="index.html" class="btn btn-back mt-2 ">Kembali ke Menu Sebelumnya</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `<p>Data tidak ditemukan untuk ID ini.</p>`;
+            }
+        }
+
+        fetchData();
+    </script>
+</head>
+<body>
+    <div class="container-main">
+        <div id="dataContainer"></div>
+    </div>
+</body>
+</html>
